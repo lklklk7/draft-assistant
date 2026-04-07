@@ -1,0 +1,8 @@
+# Normalize line endings to LF on commit, checkout as-is on Windows
+* text=auto eol=lf
+
+# Binary files — never modify line endings
+*.png binary
+*.jpg binary
+*.svg binary
+*.ico binary

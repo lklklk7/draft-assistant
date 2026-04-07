@@ -1,0 +1,15 @@
+{
+  "name": "league-draft-assistant",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "concurrently -n CLIENT,SERVER -c cyan,yellow \"npm --prefix apps/client run dev\" \"npm --prefix apps/server run dev\"",
+    "dev:client": "npm --prefix apps/client run dev",
+    "dev:server": "npm --prefix apps/server run dev",
+    "build:client": "npm --prefix apps/client run build",
+    "build:server": "npm --prefix apps/server run build"
+  },
+  "devDependencies": {
+    "concurrently": "^9.0.0"
+  }
+}
