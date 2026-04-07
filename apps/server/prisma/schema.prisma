@@ -1,0 +1,170 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+// ─── Users ───────────────────────────────────────────────────────────────────
+
+model User {
+  id           String   @id @default(cuid())
+  email        String   @unique
+  username     String   @unique
+  passwordHash String   @map("password_hash")
+  createdAt    DateTime @default(now()) @map("created_at")
+  updatedAt    DateTime @updatedAt @map("updated_at")
+
+  riotAccounts      RiotAccount[]
+  draftSimulations  DraftSimulation[]
+  matchNotes        MatchNote[]
+
+  @@map("users")
+}
+
+// ─── Riot Accounts ───────────────────────────────────────────────────────────
+
+model RiotAccount {
+  id           String    @id @default(cuid())
+  userId       String    @map("user_id")
+  gameName     String    @map("game_name")
+  tagLine      String    @map("tag_line")
+  puuid        String    @unique
+  summonerId   String?   @map("summoner_id")
+  region       String
+  lastSyncedAt DateTime? @map("last_synced_at")
+  createdAt    DateTime  @default(now()) @map("created_at")
+
+  user          User           @relation(fields: [userId], references: [id], onDelete: Cascade)
+  matches       Match[]
+  championStats ChampionStat[]
+
+  @@index([userId])
+  @@map("riot_accounts")
+}
+
+// ─── Champions (static data from Riot Data Dragon) ───────────────────────────
+
+model Champion {
+  id       String   @id @default(cuid())
+  riotKey  String   @unique @map("riot_key")  // e.g. "Ahri", "LeeSin"
+  riotId   Int      @unique @map("riot_id")   // numeric Riot champion id
+  name     String
+  title    String
+  tags     String[]
+  imageUrl String   @map("image_url")
+  version  String
+
+  matches              Match[]
+  championStats        ChampionStat[]
+  draftRecommendations DraftRecommendation[]
+
+  @@map("champions")
+}
+
+// ─── Matches ─────────────────────────────────────────────────────────────────
+
+model Match {
+  id            String   @id @default(cuid())
+  riotAccountId String   @map("riot_account_id")
+  riotMatchId   String   @map("riot_match_id")
+  championId    String   @map("champion_id")
+  role          String
+  result        Result
+  kills         Int
+  deaths        Int
+  assists       Int
+  cs            Int
+  gameDuration  Int      @map("game_duration")  // seconds
+  gameDate      DateTime @map("game_date")
+  rawData       Json     @map("raw_data")
+  createdAt     DateTime @default(now()) @map("created_at")
+
+  riotAccount RiotAccount @relation(fields: [riotAccountId], references: [id], onDelete: Cascade)
+  champion    Champion    @relation(fields: [championId], references: [id])
+  notes       MatchNote[]
+
+  // A player cannot have the same match imported twice
+  @@unique([riotAccountId, riotMatchId])
+  @@index([riotAccountId])
+  @@index([gameDate])
+  @@map("matches")
+}
+
+enum Result {
+  WIN
+  LOSS
+}
+
+// ─── Champion Stats (pre-computed aggregates per account) ────────────────────
+
+model ChampionStat {
+  id            String   @id @default(cuid())
+  riotAccountId String   @map("riot_account_id")
+  championId    String   @map("champion_id")
+  gamesPlayed   Int      @default(0) @map("games_played")
+  wins          Int      @default(0)
+  avgKills      Float    @default(0) @map("avg_kills")
+  avgDeaths     Float    @default(0) @map("avg_deaths")
+  avgAssists    Float    @default(0) @map("avg_assists")
+  avgCs         Float    @default(0) @map("avg_cs")
+  lastUpdated   DateTime @default(now()) @updatedAt @map("last_updated")
+
+  riotAccount RiotAccount @relation(fields: [riotAccountId], references: [id], onDelete: Cascade)
+  champion    Champion    @relation(fields: [championId], references: [id])
+
+  // One stat row per champion per account
+  @@unique([riotAccountId, championId])
+  @@index([riotAccountId])
+  @@map("champion_stats")
+}
+
+// ─── Draft Simulations ───────────────────────────────────────────────────────
+
+model DraftSimulation {
+  id               String   @id @default(cuid())
+  userId           String   @map("user_id")
+  role             String
+  allyChampionIds  String[] @map("ally_champion_ids")
+  enemyChampionIds String[] @map("enemy_champion_ids")
+  createdAt        DateTime @default(now()) @map("created_at")
+
+  user            User                  @relation(fields: [userId], references: [id], onDelete: Cascade)
+  recommendations DraftRecommendation[]
+
+  @@index([userId])
+  @@map("draft_simulations")
+}
+
+model DraftRecommendation {
+  id           String @id @default(cuid())
+  simulationId String @map("simulation_id")
+  championId   String @map("champion_id")
+  score        Float
+  reasoning    String
+  rank         Int
+
+  simulation DraftSimulation @relation(fields: [simulationId], references: [id], onDelete: Cascade)
+  champion   Champion        @relation(fields: [championId], references: [id])
+
+  @@index([simulationId])
+  @@map("draft_recommendations")
+}
+
+// ─── Match Notes ─────────────────────────────────────────────────────────────
+
+model MatchNote {
+  id        String   @id @default(cuid())
+  matchId   String   @map("match_id")
+  userId    String   @map("user_id")
+  content   String
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  match Match @relation(fields: [matchId], references: [id], onDelete: Cascade)
+  user  User  @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([matchId])
+  @@map("match_notes")
+}
