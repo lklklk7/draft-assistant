@@ -2,6 +2,8 @@ import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import authRoutes from './routes/auth';
+import riotRoutes from './routes/riot';
+import { syncChampions } from './services/champions';
 
 dotenv.config();
 
@@ -20,7 +22,13 @@ app.get('/health', (_req, res) => {
 });
 
 app.use('/api/auth', authRoutes);
+app.use('/api/riot', riotRoutes);
 
 app.listen(PORT, () => {
   console.log(`[server] Running on http://localhost:${PORT}`);
+
+  // Sync champion data from Data Dragon on startup
+  syncChampions()
+    .then((count) => console.log(`[champions] Synced ${count} champions`))
+    .catch((err) => console.error('[champions] Sync failed:', err));
 });
