@@ -73,11 +73,11 @@ See [apps/server/.env.example](apps/server/.env.example) for all required server
 ## Development Roadmap
 
 - [x] Milestone 1: Project foundation
-- [ ] Milestone 2: Database schema and Prisma
-- [ ] Milestone 3: Authentication backend
-- [ ] Milestone 4: Authentication frontend
-- [ ] Milestone 5: Riot API integration
-- [ ] Milestone 6: Match sync pipeline
+- [x] Milestone 2: Database schema and Prisma
+- [x] Milestone 3: Authentication backend
+- [x] Milestone 4: Authentication frontend
+- [x] Milestone 5: Riot API integration
+- [ ] Milestone 6: Riot account UI and match sync frontend
 - [ ] Milestone 7: Analytics backend
 - [ ] Milestone 8: Analytics dashboard
 - [ ] Milestone 9: Draft assistant
