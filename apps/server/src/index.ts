@@ -3,6 +3,7 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import authRoutes from './routes/auth';
 import riotRoutes from './routes/riot';
+import analyticsRoutes from './routes/analytics';
 import { syncChampions } from './services/champions';
 
 dotenv.config();
@@ -23,6 +24,7 @@ app.get('/health', (_req, res) => {
 
 app.use('/api/auth', authRoutes);
 app.use('/api/riot', riotRoutes);
+app.use('/api/analytics', analyticsRoutes);
 
 app.listen(PORT, () => {
   console.log(`[server] Running on http://localhost:${PORT}`);
