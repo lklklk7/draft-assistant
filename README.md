@@ -77,8 +77,8 @@ See [apps/server/.env.example](apps/server/.env.example) for all required server
 - [x] Milestone 3: Authentication backend
 - [x] Milestone 4: Authentication frontend
 - [x] Milestone 5: Riot API integration
-- [ ] Milestone 6: Riot account UI and match sync frontend
-- [ ] Milestone 7: Analytics backend
-- [ ] Milestone 8: Analytics dashboard
-- [ ] Milestone 9: Draft assistant
+- [x] Milestone 6: Riot account UI and match sync frontend
+- [x] Milestone 7: Analytics backend
+- [x] Milestone 8: Analytics dashboard
+- [x] Milestone 9: Draft assistant
 - [ ] Milestone 10: Deployment
