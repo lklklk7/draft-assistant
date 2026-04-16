@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { useRiotAccounts } from '../hooks/useRiot';
 import { useOverview, useChampionStats, useRecentMatches } from '../hooks/useAnalytics';
@@ -33,7 +33,15 @@ export function DashboardPage() {
   return (
     <div className="min-h-screen bg-gray-950 text-white">
       <header className="border-b border-gray-800 px-6 py-4 flex items-center justify-between">
-        <h1 className="text-yellow-400 font-bold text-lg">League Draft Assistant</h1>
+        <div className="flex items-center gap-6">
+          <h1 className="text-yellow-400 font-bold text-lg">League Draft Assistant</h1>
+          <nav className="flex gap-4 text-sm">
+            <span className="text-white font-medium">Dashboard</span>
+            <Link to="/draft" className="text-gray-400 hover:text-white transition-colors">
+              Draft
+            </Link>
+          </nav>
+        </div>
         <div className="flex items-center gap-4">
           <span className="text-gray-400 text-sm">{user?.username}</span>
           <button
