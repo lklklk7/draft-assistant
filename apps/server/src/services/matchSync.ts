@@ -1,7 +1,7 @@
 import prisma from '../lib/prisma';
 import { getMatchIds, getMatch } from './riot';
 import type { RiotMatch } from './riot';
-import type { Result } from '@prisma/client';
+type Result = 'WIN' | 'LOSS';
 
 const ROLE_MAP: Record<string, string> = {
   TOP: 'TOP',
