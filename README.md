@@ -2,6 +2,8 @@
 
 A full-stack League of Legends draft assistant and performance analytics platform.
 
+**Live demo:** https://game-draft-assistant.vercel.app
+
 ## Tech Stack
 
 | Layer | Technology |
@@ -81,4 +83,4 @@ See [apps/server/.env.example](apps/server/.env.example) for all required server
 - [x] Milestone 7: Analytics backend
 - [x] Milestone 8: Analytics dashboard
 - [x] Milestone 9: Draft assistant
-- [ ] Milestone 10: Deployment
+- [x] Milestone 10: Deployment
