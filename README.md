@@ -135,6 +135,24 @@ league-draft-assistant/
 
 ---
 
+## API Endpoints
+
+| Method | Endpoint | Auth | Description |
+|---|---|---|---|
+| POST | `/api/auth/register` | No | Create account |
+| POST | `/api/auth/login` | No | Login and receive JWT |
+| GET | `/api/auth/me` | Yes | Get current user |
+| GET | `/api/riot/accounts` | Yes | List connected Riot accounts |
+| POST | `/api/riot/accounts` | Yes | Connect a Riot account |
+| POST | `/api/riot/accounts/:id/sync` | Yes | Import match history |
+| GET | `/api/analytics/overview` | Yes | Win rate and top champions |
+| GET | `/api/analytics/champions` | Yes | Full champion stats |
+| GET | `/api/analytics/matches` | Yes | Recent match history |
+| GET | `/api/champions` | Yes | All champions from Data Dragon |
+| POST | `/api/draft/recommend` | Yes | Generate draft recommendations |
+
+---
+
 ## Getting Started
 
 ### Prerequisites
@@ -146,7 +164,6 @@ league-draft-assistant/
 ### Installation
 
 ```bash
-# Install all dependencies
 npm install
 npm --prefix apps/client install
 npm --prefix apps/server install
@@ -166,39 +183,15 @@ JWT_SECRET=a_long_random_string
 RIOT_API_KEY=RGAPI-your-key-here
 ```
 
-### Development
+### Running locally
 
 ```bash
-# Terminal 1 — backend
+# Terminal 1 — backend (http://localhost:3001)
 npm --prefix apps/server run dev
 
-# Terminal 2 — frontend
+# Terminal 2 — frontend (http://localhost:5173)
 npm --prefix apps/client run dev
 ```
-
-| Service | URL |
-|---|---|
-| Frontend | http://localhost:5173 |
-| API | http://localhost:3001 |
-| Health check | http://localhost:3001/health |
-
----
-
-## API Endpoints
-
-| Method | Endpoint | Auth | Description |
-|---|---|---|---|
-| POST | `/api/auth/register` | No | Create account |
-| POST | `/api/auth/login` | No | Login and receive JWT |
-| GET | `/api/auth/me` | Yes | Get current user |
-| GET | `/api/riot/accounts` | Yes | List connected Riot accounts |
-| POST | `/api/riot/accounts` | Yes | Connect a Riot account |
-| POST | `/api/riot/accounts/:id/sync` | Yes | Import match history |
-| GET | `/api/analytics/overview` | Yes | Win rate and top champions |
-| GET | `/api/analytics/champions` | Yes | Full champion stats |
-| GET | `/api/analytics/matches` | Yes | Recent match history |
-| GET | `/api/champions` | Yes | All champions from Data Dragon |
-| POST | `/api/draft/recommend` | Yes | Generate draft recommendations |
 
 ---
 
