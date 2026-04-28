@@ -20,6 +20,7 @@ export function ChampionStatsTable({ champions }: Props) {
             <th className="pb-3 font-medium text-center">Win Rate</th>
             <th className="pb-3 font-medium text-center">KDA</th>
             <th className="pb-3 font-medium text-center">Avg CS</th>
+            <th className="pb-3 font-medium text-center">CS/Min</th>
           </tr>
         </thead>
         <tbody className="divide-y divide-gray-800">
@@ -39,6 +40,7 @@ export function ChampionStatsTable({ champions }: Props) {
               </td>
               <td className="py-3 text-center text-gray-300">{c.kda}</td>
               <td className="py-3 text-center text-gray-300">{c.avgCs.toFixed(1)}</td>
+              <td className="py-3 text-center text-gray-300">{c.avgCsPerMin}</td>
             </tr>
           ))}
         </tbody>

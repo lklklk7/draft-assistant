@@ -20,6 +20,7 @@ export interface ChampionStat {
   avgDeaths: number;
   avgAssists: number;
   avgCs: number;
+  avgCsPerMin: number;
   kda: number;
 }
 
