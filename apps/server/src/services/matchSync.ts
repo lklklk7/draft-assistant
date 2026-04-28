@@ -25,8 +25,8 @@ export async function syncMatchHistory(riotAccountId: string): Promise<number> {
     where: { id: riotAccountId },
   });
 
-  // Fetch the last 20 match IDs from Riot
-  const allMatchIds = await getMatchIds(account.puuid, account.region, 20);
+  // Fetch the last 100 match IDs from Riot (API maximum)
+  const allMatchIds = await getMatchIds(account.puuid, account.region, 100);
 
   // Skip matches we have already imported
   const existing = await prisma.match.findMany({

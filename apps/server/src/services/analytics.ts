@@ -73,7 +73,7 @@ export async function getChampionStats(riotAccountId: string) {
   });
 }
 
-export async function getRecentMatches(riotAccountId: string, limit = 20) {
+export async function getRecentMatches(riotAccountId: string, limit = 100) {
   const matches = await prisma.match.findMany({
     where: { riotAccountId },
     include: { champion: true },
