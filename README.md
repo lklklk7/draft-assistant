@@ -15,9 +15,9 @@ A full-stack League of Legends draft assistant and performance analytics platfor
 
 ## What It Does
 
-League Draft Assistant connects to your Riot Games account, imports your match history, and uses your personal performance data to recommend champions during the draft phase — the most strategic moment of every game.
+League Draft Assistant connects to your Riot Games account, imports your match history, and uses your personal performance data to recommend champions during the draft phase
 
-Unlike generic tier lists that recommend the same champions to everyone, this tool learns from **your** games. A champion with a 70% win rate in your hands is a better pick than an S-tier champion you rarely play.
+This tool learns from **your** games. A champion with a 70% win rate in your hands is a better pick than an S-tier champion you rarely play.
 
 ---
 
